@@ -136,6 +136,7 @@
           <div class="field"><label>Bild 1</label><input id="img1" type="url" placeholder="https://…"/></div>
           <div class="field"><label>Bild 2</label><input id="img2" type="url" placeholder="https://…"/></div>
           <div class="field"><label>Bild 3</label><input id="img3" type="url" placeholder="https://…"/></div>
+          <div class="help">Wenn nichts eingetragen ist, werden automatisch Platzhalter gespeichert.</div>
         </div>
         <div class="help" id="vehMsg"></div>
         <div class="actions" style="gap:10px"><button class="btn" value="cancel">Abbrechen</button><button class="btn solid" id="saveVehicle">Speichern</button></div>
@@ -162,6 +163,13 @@
     // === DEINE GAS EXEC URL ===
     const API_BASE = "https://script.google.com/macros/s/AKfycbzIFdJ82TiaagmPyaJbfufMPwEhholEVF8FIiRd-Bb5Byd9vzzcfZTPWAhJAFH2ZKO6/exec";
 
+    // === Client-Placeholders (für Alt-Datensätze ohne Bilder) ===
+    const PLACEHOLDERS = [
+      "https://raw.githubusercontent.com/BattleNogare/car_sturmfels/main/placeholder1.png",
+      "https://raw.githubusercontent.com/BattleNogare/car_sturmfels/main/placeholder2.png",
+      "https://raw.githubusercontent.com/BattleNogare/car_sturmfels/main/placeholder3.png"
+    ];
+
     // === JSONP Helper ===
     function jsonp(params){
       return new Promise((resolve, reject)=>{
@@ -183,13 +191,17 @@
     const $ = s => document.querySelector(s);
     const el = (t,c)=>{ const e=document.createElement(t); if(c) e.className=c; return e; };
     const priceFmt = n => (n==null||n==="") ? "—" : Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format(Number(n));
+    function getImages(v){
+      const arr = Array.isArray(v.images) ? v.images.filter(Boolean) : [];
+      return arr.length ? arr : PLACEHOLDERS;
+    }
 
     // State
     let session = { token:null, user:null };
     let currentList = [];
     let selected = null;
 
-    // API
+    // API (JSONP GET)
     const api = {
       list: (mode) => jsonp({ action:"list", mode, token: session.token||"" }),
       register: (username, password) => jsonp({ action:"register", username, password }),
@@ -225,7 +237,7 @@
 
       filtered.forEach(v=>{
         const c = el("div","card"); c.dataset.id=v.id;
-        const img = el("img"); img.src=(v.images&&v.images[0])||"";
+        const img = el("img"); img.src=getImages(v)[0];
         const m = el("div","meta");
         const t = el("div","title"); t.textContent=v.name||"—";
         const p = el("div","price"); p.textContent = priceFmt(v.price) + (v.pricetype?` · ${v.pricetype}`:"");
@@ -239,9 +251,10 @@
     function openModal(v){
       selected=v;
       $("#modalImages").innerHTML="";
-      const main = el("img","main"); main.src=(v.images&&v.images[0])||""; $("#modalImages").append(main);
-      if(v.images&&v.images[1]){ const i=el("img"); i.src=v.images[1]; $("#modalImages").append(i); }
-      if(v.images&&v.images[2]){ const i=el("img"); i.src=v.images[2]; $("#modalImages").append(i); }
+      const imgs = getImages(v);
+      const main = el("img","main"); main.src=imgs[0]; $("#modalImages").append(main);
+      if(imgs[1]){ const i=el("img"); i.src=imgs[1]; $("#modalImages").append(i); }
+      if(imgs[2]){ const i=el("img"); i.src=imgs[2]; $("#modalImages").append(i); }
       $("#modalTitle").textContent=v.name||"—";
       const rows = [
         ["Fahrzeugname", v.name],
@@ -266,7 +279,6 @@
       $("#modal").classList.add("active");
     }
 
-    // Load
     async function loadVehicles(){
       const mode = session.token ? "mine" : "all";
       const res = await api.list(mode);
@@ -315,16 +327,20 @@
       $("#f_price").value = v?.price||"";
       $("#f_pricetype").value = v?.pricetype||"Festpreis";
       $("#f_contact").value = v?.contact||"";
-      const imgs = v?.images || [];
-      $("#img1").value = imgs[0]||""; $("#img2").value = imgs[1]||""; $("#img3").value = imgs[2]||"";
+      const imgs = getImages(v);
+      $("#img1").value = v?.images?.[0] || ""; // Nutzer kann bewusst überschreiben
+      $("#img2").value = v?.images?.[1] || "";
+      $("#img3").value = v?.images?.[2] || "";
       $("#vehMsg").textContent="";
       $("#dlgVehicle").dataset.editId = v?.id||"";
       $("#dlgVehicle").showModal();
     }
 
     function collectImageUrls(){
+      // Server füllt auf 3 auf – wir filtern hier nur https
       return [$("#img1").value.trim(), $("#img2").value.trim(), $("#img3").value.trim()]
-        .filter(u => /^https:\/\//i.test(u)).slice(0,3);
+        .filter(u => /^https:\/\//i.test(u))
+        .slice(0,3);
     }
 
     $("#saveVehicle").onclick=async (ev)=>{
@@ -339,7 +355,7 @@
         trunk: $("#f_trunk").value, vin: $("#f_vin").value,
         insurance: $("#f_ins").value, price: $("#f_price").value,
         pricetype: $("#f_pricetype").value, contact: $("#f_contact").value,
-        images: collectImageUrls()
+        images: collectImageUrls() // Server garantiert 3 mit Platzhaltern
       };
       const res = await (id ? api.update(data) : api.create(data));
       if(!res.ok){ $("#vehMsg").textContent = res.error||"Fehler"; return; }
