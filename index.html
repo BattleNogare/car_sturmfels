@@ -21,10 +21,15 @@
       --text:#e8ecf2; --muted:#b6c0cf;
       --accent-silver:#cfd6e0; --accent-ink:#a8b4c6;
       --danger:#ff6b6b;
-      --neon:#68ffe6; --neon2:#3dd1ff;
+
+      /* Hellblaues Neon global */
+      --neon:#7ee8ff;
+      --neon2:#45d1ff;
+      --price: var(--neon);
+
       --shadow:0 12px 28px rgba(0,0,0,.45);
-      --radius:14px; --ring:0 0 0 2px rgba(104,255,230,.2), 0 0 20px rgba(61,209,255,.12);
-      --price: #80ffe7; /* Preis-Akzent */
+      --radius:14px;
+      --ring:0 0 0 2px rgba(126,232,255,.18), 0 0 22px rgba(69,209,255,.14);
     }
 
     *{box-sizing:border-box}
@@ -34,8 +39,8 @@
       font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(1200px 700px at 85% -10%, rgba(61,209,255,.08), transparent 60%),
-        radial-gradient(900px 500px at 10% 120%, rgba(104,255,230,.06), transparent 60%),
+        radial-gradient(1200px 700px at 85% -10%, rgba(69,209,255,.08), transparent 60%),
+        radial-gradient(900px 500px at 10% 120%, rgba(126,232,255,.06), transparent 60%),
         linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)),
         repeating-linear-gradient( 135deg, rgba(255,255,255,.03) 0 2px, rgba(0,0,0,0) 2px 6px),
         linear-gradient(180deg, var(--bg2), var(--bg));
@@ -47,28 +52,27 @@
       border-bottom:1px solid var(--border);
       backdrop-filter:saturate(140%) blur(8px);
       background:
-        radial-gradient(1200px 280px at 50% -80%, rgba(61,209,255,.12), transparent 60%),
-        linear-gradient(90deg, rgba(104,255,230,.08), rgba(61,209,255,.08) 45%, rgba(104,255,230,.08) 100%),
+        radial-gradient(1200px 280px at 50% -80%, rgba(69,209,255,.12), transparent 60%),
+        linear-gradient(90deg, rgba(126,232,255,.08), rgba(69,209,255,.08) 45%, rgba(126,232,255,.08) 100%),
         linear-gradient(180deg, rgba(21,26,34,.95), rgba(14,18,24,.88));
       box-shadow:0 4px 24px rgba(0,0,0,.35);
     }
     .head{max-width:1200px;margin:auto;padding:12px 18px;display:flex;align-items:center;gap:16px;justify-content:space-between}
     .brand{display:flex;align-items:center;gap:12px}
-    .brand img{height:36px;width:auto;border-radius:8px;box-shadow:0 4px 18px rgba(61,209,255,.18)}
-    .brand h1{font-size:20px;letter-spacing:.35px;margin:0;color:var(--accent-silver);text-shadow:0 0 18px rgba(104,255,230,.12)}
+    .brand img{height:36px;width:auto;border-radius:8px;box-shadow:0 4px 18px rgba(69,209,255,.18)}
+    .brand h1{font-size:20px;letter-spacing:.35px;margin:0;color:var(--accent-silver);text-shadow:0 0 18px rgba(126,232,255,.12)}
 
     .actions{display:flex;gap:10px;align-items:center}
-
     .btn{
       position:relative;border:1px solid var(--edge);
       background:
-        radial-gradient(200px 80px at 50% -50%, rgba(61,209,255,.18), transparent 60%),
+        radial-gradient(200px 80px at 50% -50%, rgba(69,209,255,.18), transparent 60%),
         linear-gradient(180deg, #1e2530, #11161d);
       color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer;
       box-shadow:var(--shadow);
       transition:transform .06s ease, border-color .2s, background .2s, box-shadow .2s, filter .2s;
     }
-    .btn:hover{ filter:brightness(1.05); }
+    .btn:hover{ filter:brightness(1.05); box-shadow:0 0 0 0 rgba(0,0,0,0); }
     .btn:active{ transform:translateY(1px) }
     .btn.danger{
       background:
@@ -77,7 +81,29 @@
       border-color:#5e2b2f;
     }
 
-    .searchbar{max-width:1200px;margin:20px auto 10px;padding:0 18px;display:flex;gap:12px;align-items:center}
+    /* Claim/Tagline Block */
+    .tagline{
+      max-width:1200px;margin:18px auto 6px;padding:0 18px;
+    }
+    .tagbox{
+      border:1px solid var(--edge);
+      border-radius:14px;
+      background:
+        radial-gradient(800px 240px at 0% -10%, rgba(69,209,255,.10), transparent 55%),
+        linear-gradient(180deg,#151b24,#10161d);
+      box-shadow:var(--shadow);
+      padding:14px 16px;
+    }
+    .tagline p{
+      margin:4px 0;
+      color:#d7e3ef;
+    }
+    .tagline p strong{
+      color:var(--accent-silver);
+      text-shadow:0 0 16px rgba(126,232,255,.20);
+    }
+
+    .searchbar{max-width:1200px;margin:16px auto 10px;padding:0 18px;display:flex;gap:12px;align-items:center}
     .searchbar input{
       width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--edge);
       background:linear-gradient(180deg,#161c24,#10151b);
@@ -95,11 +121,22 @@
       display:flex; flex-direction:column;
       transition:transform .12s, box-shadow .12s, border-color .2s, filter .2s;
     }
-    .card:hover{ transform:translateY(-2px); border-color:#334153; filter: drop-shadow(0 6px 24px rgba(61,209,255,.08)); }
+    .card:hover{ transform:translateY(-2px); border-color:#334153; filter: drop-shadow(0 6px 24px rgba(69,209,255,.08)); }
     .card img{width:100%;height:190px;object-fit:cover;background:#0b0e13;border-bottom:1px solid rgba(255,255,255,.06)}
     .card .meta{padding:12px 12px 14px}
     .title{font-weight:700;color:#f7f9fc}
-    .price{color:var(--accent-ink);font-weight:800}
+
+    /* Preis NEON in Kartenansicht */
+    .price{
+      font-family:'Orbitron', system-ui, sans-serif;
+      color:var(--price);
+      font-weight:700;
+      letter-spacing:.4px;
+      text-shadow:
+        0 0 8px rgba(126,232,255,.35),
+        0 0 18px rgba(69,209,255,.22),
+        0 0 32px rgba(69,209,255,.18);
+    }
     .owner{color:#93a1b5;font-size:12px}
 
     /* Modal */
@@ -109,13 +146,13 @@
       content:"";position:absolute;inset:0;
       backdrop-filter:blur(12px) saturate(130%);
       background:
-        radial-gradient(900px 480px at 80% 0%, rgba(61,209,255,.14), transparent 60%),
+        radial-gradient(900px 480px at 80% 0%, rgba(69,209,255,.14), transparent 60%),
         rgba(8,11,16,.65);
     }
     .panel{
       position:relative;width:min(1000px,94vw);max-height:90vh;overflow:auto;
       background:
-        radial-gradient(600px 240px at 10% -20%, rgba(61,209,255,.09), transparent 60%),
+        radial-gradient(600px 240px at 10% -20%, rgba(69,209,255,.09), transparent 60%),
         linear-gradient(180deg, rgba(30,36,46,.92), rgba(16,20,28,.96));
       border:1px solid var(--edge);border-radius:16px;padding:18px;box-shadow:var(--shadow)
     }
@@ -123,13 +160,11 @@
     .images img{width:100%;height:260px;object-fit:cover;border-radius:10px;background:#0b0e13}
     .images img.main{grid-column:1/-1;height:340px}
 
-    /* Details-Bereich (links Tabelle, rechts Info) */
-    .details{
-      display:grid; grid-template-columns: 1.4fr 0.9fr; gap:16px; margin-top:14px;
-    }
+    /* Details: links Tabelle, rechts Preis+Kontakt */
+    .details{display:grid; grid-template-columns: 1.4fr 0.9fr; gap:16px; margin-top:14px;}
     @media (max-width:760px){ .details{ grid-template-columns:1fr; } }
 
-    /* Spezifikations-Tabelle */
+    /* Tabelle */
     .spec-table{
       width:100%; border-collapse:separate; border-spacing:0;
       background:linear-gradient(180deg,#161c22,#11161d);
@@ -141,38 +176,39 @@
       background:linear-gradient(180deg,#1c2430,#141b24);
       color:#cfe3f0; font-weight:700; border-bottom:1px solid var(--border);
     }
-    .spec-table tbody td{
-      padding:10px 12px; border-bottom:1px solid rgba(255,255,255,.05); color:#e5edf6;
-    }
+    .spec-table tbody td{ padding:10px 12px; border-bottom:1px solid rgba(255,255,255,.05); color:#e5edf6; }
     .spec-table tbody tr:nth-child(odd) td{ background:rgba(255,255,255,.02) }
     .spec-table tbody tr:last-child td{ border-bottom:none }
 
-    /* Right column blocks */
+    /* Rechte Spalte */
     .info-block{
       background:linear-gradient(180deg,#1b2230,#141b24);
       border:1px solid var(--edge); border-radius:12px; padding:12px; box-shadow:var(--shadow);
     }
     .price-tag{
-      font-family: 'Orbitron', system-ui, sans-serif;
+      font-family:'Orbitron', system-ui, sans-serif;
       font-size: clamp(20px, 3.1vw, 32px);
       color: var(--price);
       letter-spacing: .6px;
       font-weight: 700;
-      text-shadow: 0 0 18px rgba(128,255,231,.18);
+      text-shadow:
+        0 0 10px rgba(126,232,255,.35),
+        0 0 22px rgba(69,209,255,.25),
+        0 0 40px rgba(69,209,255,.22);
     }
     .info-title{ margin:0 0 8px 0; color:#cfe3f0; }
 
     /* Dialog (scrollbar inside) */
     dialog{
       border:none;border-radius:16px;padding:0;background:
-        radial-gradient(600px 240px at 100% -20%, rgba(61,209,255,.09), transparent 60%),
+        radial-gradient(600px 240px at 100% -20%, rgba(69,209,255,.09), transparent 60%),
         linear-gradient(180deg,#1a212c,#141a23);
       color:var(--text);box-shadow:var(--shadow);width:min(560px,96vw);overflow:hidden;border:1px solid var(--edge)
     }
     .dialog-head{
       padding:14px 16px;border-bottom:1px solid var(--border);
       background:
-        linear-gradient(90deg, rgba(104,255,230,.06), rgba(61,209,255,.06)),
+        linear-gradient(90deg, rgba(126,232,255,.06), rgba(69,209,255,.06)),
         linear-gradient(180deg,#222b38,#1a2230);
     }
     .dialog-body{ padding:16px;display:flex;flex-direction:column;gap:12px;max-height:65vh; overflow:auto; }
@@ -205,6 +241,17 @@
     </div>
   </header>
 
+  <!-- Claim / Tagline -->
+  <section class="tagline">
+    <div class="tagbox">
+      <p><strong>Fahrzeughandel neu gedacht – klar, direkt, unabhängig.</strong></p>
+      <p>Fahrzeugangebote direkt von Privatpersonen.</p>
+      <p>Keine Verarbeitungsgebühr. Keine Gewähr.</p>
+      <p><em>Einfach. Transparent. Unabhängig.</em></p>
+    </div>
+  </section>
+
+  <!-- Suche -->
   <div class="searchbar">
     <input id="q" placeholder="Suche nach Fahrzeugname, Kraftstoffart, FIN, Besitzer …"/>
     <button class="btn" id="btnSearch">Suchen</button>
@@ -218,12 +265,11 @@
       <button class="btn danger" id="closeModal" aria-label="Schließen">Schließen ✕</button>
       <div class="images" id="modalImages"></div>
 
-      <!-- Zwei-Spalten-Details -->
       <div class="details">
         <div>
           <table class="spec-table" id="specTable">
             <thead><tr><th>Eigenschaft</th><th>Wert</th></tr></thead>
-            <tbody><!-- JS füllt hier --></tbody>
+            <tbody></tbody>
           </table>
         </div>
         <div style="display:flex;flex-direction:column;gap:12px">
@@ -268,7 +314,12 @@
           <div class="field"><label>Versicherung</label><select id="f_ins"><option>Yes</option><option>No</option></select></div>
           <div class="field"><label>Preis (€)</label><input id="f_price" type="number"/></div>
         </div>
-        <div class="field"><label>Preisart</label><select id="f_pricetype"><option>Festpreis</option><option>VB</option></select></div>
+        <div class="field"><label>Preisart</label>
+          <select id="f_pricetype">
+            <option>Festpreis</option>
+            <option>Verhandlungsbasis</option>
+          </select>
+        </div>
         <div class="field"><label>Kontakt</label><input id="f_contact"/></div>
         <div class="section">
           <h3>Bild-Links (HTTPS)</h3>
@@ -317,7 +368,7 @@
       "https://raw.githubusercontent.com/BattleNogare/car_sturmfels/main/placeholder3.png"
     ];
 
-    // === JSONP Helper ===
+    // JSONP Helper
     function jsonp(params){
       return new Promise((resolve, reject)=>{
         const cb = "cb_" + Math.random().toString(36).slice(2);
@@ -334,7 +385,6 @@
       });
     }
 
-    // Helpers
     const $ = s => document.querySelector(s);
     const el = (t,c)=>{ const e=document.createElement(t); if(c) e.className=c; return e; };
     const priceFmt = n => (n==null||n==="") ? "—" : Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format(Number(n));
@@ -344,7 +394,6 @@
       return [imgs[0], imgs[1] || PLACEHOLDERS[1], imgs[2] || PLACEHOLDERS[2]];
     }
 
-    // API (JSONP GET)
     const api = {
       list: () => jsonp({ action:"list" }),
       create: (data) => jsonp({ action:"create", data: JSON.stringify(data) }),
@@ -352,27 +401,30 @@
       delete: (payload) => jsonp({ action:"delete", id: payload.id, deleter: payload.deleter, reason: payload.reason||"", buyer: payload.buyer||"", note: payload.note||"" })
     };
 
-    // State
     let currentList = [];
     let selected = null;
 
-    // RENDER
     function renderGrid(list){
-      const q = $("#q").value.trim().toLowerCase();
+      const q = $("#q")?.value?.trim()?.toLowerCase() || "";
       const filtered = list.filter(v=>{
         const hay=[v.name,v.fuel,v.vin,v.owner].join(" ").toLowerCase();
         return hay.includes(q);
       });
-      const grid = $("#grid");
+      const grid = $("#grid"); if(!grid) return;
       grid.innerHTML = "";
-      if(!filtered.length){ grid.innerHTML = `<div class="help" style="color:#9fb1c4">Keine Fahrzeuge gefunden.</div>`; return; }
+      if(!filtered.length){
+        grid.innerHTML = `<div class="help" style="color:#9fb1c4">Keine Fahrzeuge gefunden.</div>`;
+        return;
+      }
 
       filtered.forEach(v=>{
-        const c = el("div","card"); c.dataset.id=v.id;
+        const c = el("div","card");
         const img = el("img"); img.src=getImages(v)[0];
         const m = el("div","meta");
         const t = el("div","title"); t.textContent=v.name||"—";
-        const p = el("div","price"); p.textContent = priceFmt(v.price) + (v.pricetype?` · ${v.pricetype}`:"");
+        const pricetypeDisplay = v.pricetype==="VB" ? "Verhandlungsbasis" : (v.pricetype||"—");
+        const p = el("div","price"); // NEON in Kartenansicht
+        p.textContent = priceFmt(v.price) + (v.pricetype?` · ${pricetypeDisplay}`:"");
         const o = el("div","owner"); o.textContent = `Besitzer: ${v.owner||"—"}`;
         m.append(t,p,o); c.append(img,m);
         c.onclick=()=>openModal(v);
@@ -398,18 +450,16 @@
     function openModal(v){
       selected=v;
       // Bilder
-      $("#modalImages").innerHTML="";
       const imgs = getImages(v);
-      const main = el("img","main"); main.src=imgs[0]; $("#modalImages").append(main);
-      if(imgs[1]){ const i=el("img"); i.src=imgs[1]; $("#modalImages").append(i); }
-      if(imgs[2]){ const i=el("img"); i.src=imgs[2]; $("#modalImages").append(i); }
+      $("#modalImages").innerHTML = imgs.map((u,i)=>`<img class="${i===0?"main":""}" src="${u}"/>`).join("");
 
       // Tabelle links
       $("#specTable tbody").innerHTML = buildSpecTableRows(v);
 
       // Preis & Kontakt rechts
       $("#priceValue").textContent = priceFmt(v.price);
-      $("#priceType").textContent = v.pricetype || "—";
+      const pt = v.pricetype==="VB" ? "Verhandlungsbasis" : (v.pricetype||"—");
+      $("#priceType").textContent = pt;
       $("#contactText").textContent = v.contact || "—";
 
       // Show modal
@@ -418,36 +468,22 @@
       modal.setAttribute("aria-hidden","false");
     }
 
-    // Modal CLOSE: Button, ESC, Klick außerhalb
     function closeModal(){
       const modal = $("#modal");
       modal.classList.remove("active");
       modal.setAttribute("aria-hidden","true");
       selected=null;
     }
-    $("#closeModal").onclick = closeModal;
-    // Klick außerhalb: nur schließen, wenn direkt Overlay geklickt wird
-    $("#modal").addEventListener("click", (e)=>{
-      if (e.target === e.currentTarget) closeModal();
-    });
-    // ESC schließen
-    document.addEventListener("keydown", (e)=>{
-      if (e.key === "Escape" && $("#modal").classList.contains("active")) closeModal();
-    });
-
-    async function loadVehicles(){
-      const res = await api.list();
-      if(!res.ok){ alert(res.error||"Fehler"); return; }
-      currentList = res.data||[];
-      renderGrid(currentList);
-    }
+    $("#closeModal")?.addEventListener("click", closeModal);
+    $("#modal")?.addEventListener("click", e=>{ if(e.target===e.currentTarget) closeModal(); });
+    document.addEventListener("keydown", e=>{ if(e.key==="Escape" && $("#modal").classList.contains("active")) closeModal(); });
 
     // Suche
-    $("#btnSearch").onclick=()=>renderGrid(currentList);
-    $("#q").onkeydown=(e)=>{ if(e.key==="Enter") renderGrid(currentList); };
+    $("#btnSearch")?.addEventListener("click", ()=>renderGrid(currentList));
+    $("#q")?.addEventListener("keydown", e=>{ if(e.key==="Enter") renderGrid(currentList); });
 
     // Create/Edit
-    $("#btnNew").onclick=()=>openEdit(null);
+    $("#btnNew")?.addEventListener("click", ()=>openEdit(null));
 
     function openEdit(v){
       $("#vehDialogTitle").textContent = v? "Fahrzeug bearbeiten" : "Fahrzeug anlegen";
@@ -461,7 +497,8 @@
       $("#f_vin").value = v?.vin || "";
       $("#f_ins").value = (v?.insurance==="No"?"No":"Yes");
       $("#f_price").value = v?.price || "";
-      $("#f_pricetype").value = v?.pricetype || "Festpreis";
+      // „VB“ -> „Verhandlungsbasis“ abbilden
+      $("#f_pricetype").value = (v?.pricetype==="VB") ? "Verhandlungsbasis" : (v?.pricetype || "Festpreis");
       $("#f_contact").value = v?.contact || "";
       $("#img1").value = v?.images?.[0] || "";
       $("#img2").value = v?.images?.[1] || "";
@@ -477,7 +514,7 @@
         .slice(0,3);
     }
 
-    $("#saveVehicle").onclick=async (ev)=>{
+    $("#saveVehicle")?.addEventListener("click", async (ev)=>{
       ev.preventDefault();
       if (!$("#f_owner").value.trim()){ $("#vehMsg").textContent="Besitzer ist ein Pflichtfeld."; return; }
       $("#vehMsg").textContent="Speichere…";
@@ -496,7 +533,7 @@
       const res = await (id ? api.update(data) : api.create(data));
       if(!res.ok){ $("#vehMsg").textContent = res.error||"Fehler"; return; }
       $("#vehMsg").textContent="Gespeichert."; $("#dlgVehicle").close(); loadVehicles();
-    };
+    });
 
     // Delete
     function askDelete(v){
@@ -507,14 +544,17 @@
       $("#delMsg").textContent="";
       $("#dlgDelete").showModal();
     }
-    $("#delReason").onchange=()=>{
+    document.addEventListener("click", (e)=>{
+      // Delegation: Delete/ Edit Buttons innerhalb des Modals existieren in der DOM
+      if(e.target && e.target.id==="deleteBtn"){ if(selected) askDelete(selected); }
+      if(e.target && e.target.id==="editBtn"){ if(selected) openEdit(selected); }
+    });
+    $("#delReason")?.addEventListener("change", ()=>{
       const r=$("#delReason").value;
       $("#buyerWrap").style.display=(r==="Verkauf")?"block":"none";
       $("#otherWrap").style.display=(r==="Sonstiges")?"block":"none";
-    };
-    document.getElementById("editBtn").onclick=()=>{ if(selected) openEdit(selected); };
-    document.getElementById("deleteBtn").onclick=()=>{ if(selected) askDelete(selected); };
-    document.getElementById("confirmDelete").onclick=async (ev)=>{
+    });
+    $("#confirmDelete")?.addEventListener("click", async (ev)=>{
       ev.preventDefault();
       const who = $("#delWho").value.trim();
       if(!who){ $("#delMsg").textContent="Bitte gib deinen Namen an (Pflicht)."; return; }
@@ -528,9 +568,14 @@
       });
       if(!res.ok){ $("#delMsg").textContent = res.error||"Fehler"; return; }
       $("#dlgDelete").close(); closeModal(); loadVehicles();
-    };
+    });
 
-    // Init
+    async function loadVehicles(){
+      const res = await api.list();
+      if(!res.ok){ alert(res.error||"Fehler"); return; }
+      currentList = res.data||[];
+      renderGrid(currentList);
+    }
     loadVehicles();
   </script>
 </body>
