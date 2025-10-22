@@ -10,30 +10,93 @@
   <link rel="preload" as="image" href="https://raw.githubusercontent.com/BattleNogare/car_sturmfels/main/car-sturmfels-logo.png"/>
 
   <style>
-    :root{--bg:#0d1015;--bg2:#0f1319;--glass:rgba(255,255,255,.08);--border:rgba(255,255,255,.12);--edge:rgba(255,255,255,.18);--text:#f2f4f7;--muted:#cfd5dd;--accent:#e7ebf2;--accent2:#bfc6d1;--danger:#ff6b6b;--shadow:0 12px 30px rgba(0,0,0,.35);--ring:0 0 0 3px rgba(255,255,255,.08),0 0 0 6px rgba(191,198,209,.25);--radius:14px;--blur:14px}
-    *{box-sizing:border-box}html,body{height:100%}body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:radial-gradient(1000px 600px at 80% -10%, rgba(231,235,242,.08), transparent 60%),linear-gradient(180deg,var(--bg2),var(--bg));background-attachment:fixed}
-    header{position:sticky;top:0;z-index:10;backdrop-filter:saturate(140%) blur(10px);background:linear-gradient(180deg, rgba(20,26,34,.75), rgba(20,26,34,.45));border-bottom:1px solid var(--border)}
+    /* ===== LIGHT SILVER THEME ===== */
+    :root{
+      --bg:#e9edf2;
+      --bg2:#f5f7fa;
+      --panel:#ffffff;
+      --panel2:#f2f5f8;
+      --border:#d7dde5;
+      --edge:#cfd6e0;
+      --text:#1b2430;
+      --muted:#465266;
+      --accent:#2e3b52;
+      --accent2:#5a6a85;
+      --danger:#c03b3b;
+      --shadow:0 10px 24px rgba(31,41,55,.10);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 80% -10%, rgba(180,190,205,.25), transparent 60%),
+        linear-gradient(180deg, var(--bg2), var(--bg));
+      background-attachment:fixed;
+    }
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter:saturate(130%) blur(6px);
+      background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65));
+      border-bottom:1px solid var(--border);
+    }
     .head{max-width:1200px;margin:auto;padding:12px 18px;display:flex;align-items:center;gap:16px;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:12px}.brand img{height:36px;width:auto;border-radius:8px;box-shadow:0 3px 10px rgba(0,0,0,.25)}.brand h1{font-size:20px;letter-spacing:.4px;margin:0;color:var(--accent)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{height:36px;width:auto;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+    .brand h1{font-size:20px;letter-spacing:.3px;margin:0;color:var(--accent)}
     .actions{display:flex;gap:10px;align-items:center}
-    .btn{position:relative;border:1px solid var(--edge);background:linear-gradient(180deg, rgba(43,51,64,.9), rgba(19,22,29,.9));color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer;box-shadow:var(--shadow);transition:transform .05s ease, border-color .2s, background .2s, box-shadow .2s}
-    .btn.solid{background:linear-gradient(180deg,#eef2f7,#d7dde7);color:#0b0d11;border-color:#e3e8f0;font-weight:600}
-    .btn.danger{background:linear-gradient(180deg,#ff9a9a,#ff6b6b);color:#220}
+    .btn{
+      border:1px solid var(--edge);
+      background:linear-gradient(180deg,#f8fafc,#eef3f7);
+      color:var(--accent);
+      padding:10px 14px;border-radius:12px;cursor:pointer;
+      box-shadow:var(--shadow);
+      transition:transform .05s ease, border-color .2s, background .2s, box-shadow .2s
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn.danger{background:linear-gradient(180deg,#ffeaea,#ffd6d6); color:#7a1f1f; border-color:#f2b0b0}
     .searchbar{max-width:1200px;margin:20px auto 10px;padding:0 18px;display:flex;gap:12px;align-items:center}
-    .searchbar input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(180deg,#1a202b,#121720);color:var(--text);outline:none}
+    .searchbar input{
+      width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--edge);
+      background:linear-gradient(180deg,#ffffff,#f3f6f9);color:var(--text);outline:none
+    }
     .grid{max-width:1200px;margin:10px auto 80px;padding:10px 18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-    @media (max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}@media (max-width:640px){.grid{grid-template-columns:1fr}}
-    .card{background:linear-gradient(180deg,rgba(30,36,46,.85),rgba(16,20,28,.95));border:1px solid var(--glass);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .12s, box-shadow .12s, border-color .2s}
-    .card img{width:100%;height:190px;object-fit:cover;background:#0b0e13}
-    .card .meta{padding:12px 12px 14px}.title{font-weight:600;color:#fff}.price{color:var(--accent2);font-weight:700}.owner{color:#aab3bf;font-size:12px}
-    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:50}.modal.active{display:flex}.modal::before{content:"";position:absolute;inset:0;backdrop-filter:blur(var(--blur));background:rgba(10,12,16,.65)}
-    .panel{position:relative;width:min(1000px,94vw);max-height:90vh;overflow:auto;background:linear-gradient(180deg,rgba(30,36,46,.92),rgba(16,20,28,.96));border:1px solid var(--edge);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
-    .images{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}.images img{width:100%;height:260px;object-fit:cover;border-radius:10px;background:#0b0e13}.images img.main{grid-column:1/-1;height:340px}
-    dialog{border:none;border-radius:16px;padding:0;background:linear-gradient(180deg,#1b2230,#151a23);color:var(--text);box-shadow:var(--shadow);width:min(520px,96vw);overflow:hidden}
-    .dialog-head{padding:14px 16px;border-bottom:1px solid var(--glass);background:linear-gradient(180deg,#232a39,#1a1f27)}.dialog-body{padding:16px;display:flex;flex-direction:column;gap:12px}
-    .field{display:flex;flex-direction:column;gap:6px}.field input,.field select,.field textarea{padding:10px 12px;border-radius:12px;border:1px solid var(--edge);background:linear-gradient(180deg,#202734,#161b23);color:var(--text);outline:none}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media (max-width:560px){.row{grid-template-columns:1fr}}
-    footer{color:#9aa3af;font-size:12px;text-align:center;padding:30px 10px 50px}
+    @media (max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.grid{grid-template-columns:1fr}}
+    .card{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      overflow:hidden; box-shadow:var(--shadow);
+      display:flex; flex-direction:column;
+      transition:transform .12s, box-shadow .12s, border-color .2s
+    }
+    .card img{width:100%;height:190px;object-fit:cover;background:#e3e8ee}
+    .card .meta{padding:12px 12px 14px}
+    .title{font-weight:700;color:var(--accent)}
+    .price{color:var(--accent2);font-weight:700}
+    .owner{color:var(--muted);font-size:12px}
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:50}
+    .modal.active{display:flex}
+    .modal::before{content:"";position:absolute;inset:0;backdrop-filter:blur(10px);background:rgba(235,239,245,.65)}
+    .panel{position:relative;width:min(1000px,94vw);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+    .images{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+    .images img{width:100%;height:260px;object-fit:cover;border-radius:10px;background:#e3e8ee}
+    .images img.main{grid-column:1/-1;height:340px}
+    dialog{border:none;border-radius:16px;padding:0;background:var(--panel);color:var(--text);box-shadow:var(--shadow);width:min(560px,96vw);overflow:hidden;border:1px solid var(--border)}
+    .dialog-head{padding:14px 16px;border-bottom:1px solid var(--border);background:var(--panel2)}
+    .dialog-body{padding:16px;display:flex;flex-direction:column;gap:12px}
+    .field{display:flex;flex-direction:column;gap:6px}
+    .field input,.field select,.field textarea{
+      padding:10px 12px;border-radius:12px;border:1px solid var(--edge);
+      background:#fff;color:var(--text);outline:none
+    }
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:560px){.row{grid-template-columns:1fr}}
+    footer{color:#6c7890;font-size:12px;text-align:center;padding:30px 10px 50px}
   </style>
 </head>
 <body>
@@ -43,22 +106,16 @@
         <img src="https://raw.githubusercontent.com/BattleNogare/car_sturmfels/main/car-sturmfels-logo.png" alt="Sturmfels Logo"/>
         <h1>Fahrzeughandel Sturmfels</h1>
       </div>
-      <div class="actions" id="authActions">
-        <button class="btn" id="btnLogin">Login</button>
-        <button class="btn solid" id="btnRegister">Registrieren</button>
-      </div>
-      <div class="actions" id="authLogged" style="display:none">
-        <span id="helloUser" class="help"></span>
+      <div class="actions">
         <button class="btn" id="btnNew">+ Fahrzeug</button>
-        <button class="btn danger" id="btnLogout">Logout</button>
       </div>
     </div>
   </header>
 
   <div class="searchbar">
-    <input id="q" placeholder="Suche nach Fahrzeugname, Kraftstoffart, FIN …"/>
+    <input id="q" placeholder="Suche nach Fahrzeugname, Kraftstoffart, FIN, Besitzer …"/>
     <button class="btn" id="btnSearch">Suchen</button>
-    <span class="help" id="filterHint">Nicht eingeloggt: Alle Fahrzeuge • Eingeloggt: nur deine Fahrzeuge</span>
+    <span class="help" id="filterHint"></span>
   </div>
 
   <section class="grid" id="grid"></section>
@@ -72,42 +129,19 @@
       <div class="section"><div id="specRows"></div></div>
       <div class="section" id="priceBlock"></div>
       <div class="section" id="contactBlock"></div>
-      <div class="actions" id="ownerActions" style="display:none;gap:8px;margin-top:8px">
+      <div class="actions" id="ownerActions" style="display:flex;gap:8px;margin-top:8px">
         <button class="btn" id="editBtn">Bearbeiten</button>
         <button class="btn danger" id="deleteBtn">Löschen</button>
       </div>
     </div>
   </div>
 
-  <!-- Dialoge -->
-  <dialog id="dlgLogin">
-    <div class="dialog-head"><strong>Login</strong></div>
-    <form method="dialog">
-      <div class="dialog-body">
-        <div class="field"><label>Benutzername</label><input id="loginUser" required autocomplete="username"/></div>
-        <div class="field"><label>Passwort</label><input id="loginPass" type="password" required autocomplete="current-password"/></div>
-        <div class="help" id="loginMsg"></div>
-        <div class="actions" style="gap:10px"><button class="btn" value="cancel">Abbrechen</button><button class="btn solid" id="doLogin">Login</button></div>
-      </div>
-    </form>
-  </dialog>
-
-  <dialog id="dlgRegister">
-    <div class="dialog-head"><strong>Registrieren</strong></div>
-    <form method="dialog">
-      <div class="dialog-body">
-        <div class="field"><label>Benutzername</label><input id="regUser" required autocomplete="username"/></div>
-        <div class="field"><label>Passwort</label><input id="regPass" type="password" required autocomplete="new-password"/></div>
-        <div class="help" id="regMsg">Passwörter werden serverseitig gehasht gespeichert.</div>
-        <div class="actions" style="gap:10px"><button class="btn" value="cancel">Abbrechen</button><button class="btn solid" id="doRegister">Konto anlegen</button></div>
-      </div>
-    </form>
-  </dialog>
-
+  <!-- Dialog: Fahrzeug anlegen/bearbeiten -->
   <dialog id="dlgVehicle">
     <div class="dialog-head"><strong id="vehDialogTitle">Fahrzeug anlegen</strong></div>
     <form method="dialog">
       <div class="dialog-body">
+        <div class="field"><label>Besitzer (Pflicht)</label><input id="f_owner" required/></div>
         <div class="field"><label>Fahrzeugname</label><input id="f_name" required/></div>
         <div class="row">
           <div class="field"><label>V-MAX (km/h)</label><input id="f_vmax" type="number"/></div>
@@ -136,23 +170,31 @@
           <div class="field"><label>Bild 1</label><input id="img1" type="url" placeholder="https://…"/></div>
           <div class="field"><label>Bild 2</label><input id="img2" type="url" placeholder="https://…"/></div>
           <div class="field"><label>Bild 3</label><input id="img3" type="url" placeholder="https://…"/></div>
-          <div class="help">Wenn nichts eingetragen ist, werden automatisch Platzhalter gespeichert.</div>
+          <div class="help">Fehlende Plätze werden automatisch mit Platzhaltern gespeichert (insgesamt immer 3 Bilder).</div>
         </div>
         <div class="help" id="vehMsg"></div>
-        <div class="actions" style="gap:10px"><button class="btn" value="cancel">Abbrechen</button><button class="btn solid" id="saveVehicle">Speichern</button></div>
+        <div class="actions" style="gap:10px">
+          <button class="btn" value="cancel">Abbrechen</button>
+          <button class="btn" id="saveVehicle">Speichern</button>
+        </div>
       </div>
     </form>
   </dialog>
 
+  <!-- Dialog: Löschen -->
   <dialog id="dlgDelete">
     <div class="dialog-head"><strong>Angebot löschen</strong></div>
     <form method="dialog">
       <div class="dialog-body">
+        <div class="field"><label>Dein Name (Pflicht)</label><input id="delWho" required/></div>
         <div class="field"><label>Grund</label><select id="delReason"><option>Verkauf</option><option>Rückzug</option><option>Sonstiges</option></select></div>
         <div class="field" id="buyerWrap" style="display:none"><label>Käufer</label><input id="delBuyer"/></div>
         <div class="field" id="otherWrap" style="display:none"><label>Beschreibung</label><textarea id="delOther" rows="3"></textarea></div>
         <div class="help" id="delMsg"></div>
-        <div class="actions" style="gap:10px"><button class="btn" value="cancel">Abbrechen</button><button class="btn danger" id="confirmDelete">Endgültig löschen & archivieren</button></div>
+        <div class="actions" style="gap:10px">
+          <button class="btn" value="cancel">Abbrechen</button>
+          <button class="btn danger" id="confirmDelete">Endgültig löschen & archivieren</button>
+        </div>
       </div>
     </form>
   </dialog>
@@ -193,39 +235,27 @@
     const priceFmt = n => (n==null||n==="") ? "—" : Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format(Number(n));
     function getImages(v){
       const arr = Array.isArray(v.images) ? v.images.filter(Boolean) : [];
-      return arr.length ? arr : PLACEHOLDERS;
+      // Falls alte Fahrzeuge ohne images_json: nimm Platzhalter
+      const imgs = arr.length ? arr : PLACEHOLDERS;
+      // Immer 3 anzeigen (überschüssige ignorieren)
+      return [imgs[0], imgs[1] || PLACEHOLDERS[1], imgs[2] || PLACEHOLDERS[2]];
     }
-
-    // State
-    let session = { token:null, user:null };
-    let currentList = [];
-    let selected = null;
 
     // API (JSONP GET)
     const api = {
-      list: (mode) => jsonp({ action:"list", mode, token: session.token||"" }),
-      register: (username, password) => jsonp({ action:"register", username, password }),
-      login: (username, password) => jsonp({ action:"login", username, password }),
-      create: (data) => jsonp({ action:"create", token: session.token, data: JSON.stringify(data) }),
-      update: (data) => jsonp({ action:"update", token: session.token, data: JSON.stringify(data) }),
-      delete: (payload) => jsonp({ action:"delete", token: session.token, id: payload.id, reason: payload.reason||"", buyer: payload.buyer||"", note: payload.note||"" })
+      list: () => jsonp({ action:"list" }),
+      create: (data) => jsonp({ action:"create", data: JSON.stringify(data) }),
+      update: (data) => jsonp({ action:"update", data: JSON.stringify(data) }),
+      delete: (payload) => jsonp({ action:"delete", id: payload.id, deleter: payload.deleter, reason: payload.reason||"", buyer: payload.buyer||"", note: payload.note||"" })
     };
 
-    // UI
-    function setAuthUI(){
-      if(session.token){
-        $("#authActions").style.display="none";
-        $("#authLogged").style.display="flex";
-        $("#helloUser").textContent = `Eingeloggt als ${session.user}`;
-        $("#filterHint").textContent = "Eingeloggt: Es werden nur deine Fahrzeuge geladen";
-      } else {
-        $("#authActions").style.display="flex";
-        $("#authLogged").style.display="none";
-        $("#filterHint").textContent = "Nicht eingeloggt: Es werden alle Fahrzeuge geladen";
-      }
-    }
+    // State
+    let currentList = [];
+    let selected = null;
 
+    // RENDER
     function renderGrid(list){
+      // Der Server liefert bereits in Erstellreihenfolge (älteste zuerst)
       const q = $("#q").value.trim().toLowerCase();
       const filtered = list.filter(v=>{
         const hay=[v.name,v.fuel,v.vin,v.owner].join(" ").toLowerCase();
@@ -241,7 +271,7 @@
         const m = el("div","meta");
         const t = el("div","title"); t.textContent=v.name||"—";
         const p = el("div","price"); p.textContent = priceFmt(v.price) + (v.pricetype?` · ${v.pricetype}`:"");
-        const o = el("div","owner"); o.textContent = `Besitzer: ${v.owner}`;
+        const o = el("div","owner"); o.textContent = `Besitzer: ${v.owner||"—"}`;
         m.append(t,p,o); c.append(img,m);
         c.onclick=()=>openModal(v);
         grid.append(c);
@@ -269,19 +299,13 @@
       $("#specRows").innerHTML = rows.map(r=>`<div><b>${r[0]}:</b> ${r[1]}</div>`).join("");
       $("#priceBlock").innerHTML = `<h3>Preis</h3><div>${priceFmt(v.price)} · ${v.pricetype||"—"}</div>`;
       $("#contactBlock").innerHTML = `<h3>Kontakt</h3><div>${v.contact||"—"}</div>`;
-      if(session.user && v.owner===session.user){
-        $("#ownerActions").style.display="flex";
-        $("#editBtn").onclick=()=>openEdit(v);
-        $("#deleteBtn").onclick=()=>askDelete(v);
-      } else {
-        $("#ownerActions").style.display="none";
-      }
+
       $("#modal").classList.add("active");
     }
+    $("#closeModal").onclick=()=>{$("#modal").classList.remove("active"); selected=null;};
 
     async function loadVehicles(){
-      const mode = session.token ? "mine" : "all";
-      const res = await api.list(mode);
+      const res = await api.list();
       if(!res.ok){ alert(res.error||"Fehler"); return; }
       currentList = res.data||[];
       renderGrid(currentList);
@@ -291,44 +315,25 @@
     $("#btnSearch").onclick=()=>renderGrid(currentList);
     $("#q").onkeydown=(e)=>{ if(e.key==="Enter") renderGrid(currentList); };
 
-    // Auth
-    $("#btnLogin").onclick=()=>$("#dlgLogin").showModal();
-    $("#btnRegister").onclick=()=>$("#dlgRegister").showModal();
-    $("#btnLogout").onclick=()=>{ session={token:null,user:null}; setAuthUI(); loadVehicles(); };
-
-    $("#doLogin").onclick=async (ev)=>{
-      ev.preventDefault();
-      $("#loginMsg").textContent="Prüfe…";
-      const res = await api.login($("#loginUser").value.trim(), $("#loginPass").value);
-      if(res.ok){ session.token=res.token; session.user=res.user; $("#dlgLogin").close(); setAuthUI(); loadVehicles(); }
-      else { $("#loginMsg").textContent = res.error||"Login fehlgeschlagen"; }
-    };
-
-    $("#doRegister").onclick=async (ev)=>{
-      ev.preventDefault();
-      $("#regMsg").textContent="Erstelle Konto…";
-      const res = await api.register($("#regUser").value.trim(), $("#regPass").value);
-      $("#regMsg").textContent = res.ok ? "Konto angelegt. Du kannst dich jetzt einloggen." : (res.error||"Registrierung fehlgeschlagen");
-    };
-
     // Create/Edit
     $("#btnNew").onclick=()=>openEdit(null);
 
     function openEdit(v){
       $("#vehDialogTitle").textContent = v? "Fahrzeug bearbeiten" : "Fahrzeug anlegen";
-      $("#f_name").value = v?.name||"";
-      $("#f_vmax").value = v?.vmax||"";
-      $("#f_power").value = v?.power||"";
-      $("#f_fuel").value = v?.fuel||"Diesel";
-      $("#f_seats").value = v?.seats||"";
-      $("#f_trunk").value = v?.trunk||"";
-      $("#f_vin").value = v?.vin||"";
+      $("#f_owner").value = v?.owner || "";
+      $("#f_name").value = v?.name || "";
+      $("#f_vmax").value = v?.vmax || "";
+      $("#f_power").value = v?.power || "";
+      $("#f_fuel").value = v?.fuel || "Diesel";
+      $("#f_seats").value = v?.seats || "";
+      $("#f_trunk").value = v?.trunk || "";
+      $("#f_vin").value = v?.vin || "";
       $("#f_ins").value = (v?.insurance==="No"?"No":"Yes");
-      $("#f_price").value = v?.price||"";
-      $("#f_pricetype").value = v?.pricetype||"Festpreis";
-      $("#f_contact").value = v?.contact||"";
-      const imgs = getImages(v);
-      $("#img1").value = v?.images?.[0] || ""; // Nutzer kann bewusst überschreiben
+      $("#f_price").value = v?.price || "";
+      $("#f_pricetype").value = v?.pricetype || "Festpreis";
+      $("#f_contact").value = v?.contact || "";
+      // Bilder: zeigen (aber Nutzer kann bewusst überschreiben/leer lassen)
+      $("#img1").value = v?.images?.[0] || "";
       $("#img2").value = v?.images?.[1] || "";
       $("#img3").value = v?.images?.[2] || "";
       $("#vehMsg").textContent="";
@@ -337,7 +342,7 @@
     }
 
     function collectImageUrls(){
-      // Server füllt auf 3 auf – wir filtern hier nur https
+      // Server füllt auf 3 auf – hier nur https filtern
       return [$("#img1").value.trim(), $("#img2").value.trim(), $("#img3").value.trim()]
         .filter(u => /^https:\/\//i.test(u))
         .slice(0,3);
@@ -345,10 +350,12 @@
 
     $("#saveVehicle").onclick=async (ev)=>{
       ev.preventDefault();
+      if (!$("#f_owner").value.trim()){ $("#vehMsg").textContent="Besitzer ist ein Pflichtfeld."; return; }
       $("#vehMsg").textContent="Speichere…";
       const id = $("#dlgVehicle").dataset.editId || undefined;
       const data = {
         id,
+        owner: $("#f_owner").value.trim(),
         name: $("#f_name").value.trim(),
         vmax: $("#f_vmax").value, power: $("#f_power").value,
         fuel: $("#f_fuel").value, seats: $("#f_seats").value,
@@ -365,6 +372,7 @@
     // Delete
     function askDelete(v){
       selected=v;
+      $("#delWho").value="";
       $("#delReason").value="Verkauf"; $("#delBuyer").value=""; $("#delOther").value="";
       $("#buyerWrap").style.display="block"; $("#otherWrap").style.display="none";
       $("#delMsg").textContent="";
@@ -375,13 +383,17 @@
       $("#buyerWrap").style.display=(r==="Verkauf")?"block":"none";
       $("#otherWrap").style.display=(r==="Sonstiges")?"block":"none";
     };
+    // Buttons (im Modal sichtbar)
     $("#editBtn").onclick=()=>{ if(selected) openEdit(selected); };
     $("#deleteBtn").onclick=()=>{ if(selected) askDelete(selected); };
     $("#confirmDelete").onclick=async (ev)=>{
       ev.preventDefault();
+      const who = $("#delWho").value.trim();
+      if(!who){ $("#delMsg").textContent="Bitte gib deinen Namen an (Pflicht)."; return; }
       const r = $("#delReason").value;
       const res = await api.delete({
         id: selected.id,
+        deleter: who,
         reason: r,
         buyer: r==="Verkauf" ? $("#delBuyer").value.trim() : "",
         note: r==="Sonstiges" ? $("#delOther").value.trim() : (r==="Rückzug" ? "Rückzug des Angebots" : "")
@@ -390,10 +402,7 @@
       $("#dlgDelete").close(); $("#modal").classList.remove("active"); loadVehicles();
     };
 
-    $("#closeModal").onclick=()=>{$("#modal").classList.remove("active"); selected=null;};
-
     // Init
-    setAuthUI();
     loadVehicles();
   </script>
 </body>
