@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="de">
 <head>
@@ -6,9 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Fahrzeughandel Sturmfels</title>
 
-  <!-- Logo & Favicon -->
-  <link rel="icon" href="https://raw.githubusercontent.com/BattleNogare/lostparadise-farmroute-rechner/main/car-sturmfels-logo.png"/>
-  <link rel="preload" as="image" href="https://raw.githubusercontent.com/BattleNogare/lostparadise-farmroute-rechner/main/car-sturmfels-logo.png"/>
+  <!-- Favicon & Logo -->
+  <link rel="icon" href="https://raw.githubusercontent.com/BattleNogare/car_sturmfels/main/car-sturmfels-logo.ico"/>
+  <link rel="preload" as="image" href="https://raw.githubusercontent.com/BattleNogare/car_sturmfels/main/car-sturmfels-logo.png"/>
 
   <style>
     :root{--bg:#0d1015;--bg2:#0f1319;--glass:rgba(255,255,255,.08);--border:rgba(255,255,255,.12);--edge:rgba(255,255,255,.18);--text:#f2f4f7;--muted:#cfd5dd;--accent:#e7ebf2;--accent2:#bfc6d1;--danger:#ff6b6b;--shadow:0 12px 30px rgba(0,0,0,.35);--ring:0 0 0 3px rgba(255,255,255,.08),0 0 0 6px rgba(191,198,209,.25);--radius:14px;--blur:14px}
@@ -41,7 +40,7 @@
   <header>
     <div class="head">
       <div class="brand">
-        <img src="https://raw.githubusercontent.com/BattleNogare/lostparadise-farmroute-rechner/main/car-sturmfels-logo.png" alt="Sturmfels Logo"/>
+        <img src="https://raw.githubusercontent.com/BattleNogare/car_sturmfels/main/car-sturmfels-logo.png" alt="Sturmfels Logo"/>
         <h1>Fahrzeughandel Sturmfels</h1>
       </div>
       <div class="actions" id="authActions">
@@ -160,9 +159,8 @@
   <footer>© Fahrzeughandel Sturmfels</footer>
 
   <script>
-    // === GAS EXEC URL (ohne Worker) ===
-    // HIER die /exec-URL deiner Web-App eintragen:
-    const API_BASE = "https://script.google.com/macros/s/AKfycbwv0ahhovY2IjHgRyHMILKZkd2rA6Ar3NdVccgkqi0m2NpnwB--Z_D2zNvRSxShKNay/exec";
+    // === DEINE GAS EXEC URL ===
+    const API_BASE = "https://script.google.com/macros/s/AKfycbzIFdJ82TiaagmPyaJbfufMPwEhholEVF8FIiRd-Bb5Byd9vzzcfZTPWAhJAFH2ZKO6/exec";
 
     // === JSONP Helper ===
     function jsonp(params){
@@ -181,17 +179,17 @@
       });
     }
 
-    // === kleine Helper ===
+    // Helpers
     const $ = s => document.querySelector(s);
     const el = (t,c)=>{ const e=document.createElement(t); if(c) e.className=c; return e; };
     const priceFmt = n => (n==null||n==="") ? "—" : Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format(Number(n));
 
-    // === STATE ===
+    // State
     let session = { token:null, user:null };
     let currentList = [];
     let selected = null;
 
-    // === API Calls (alle via GET/JSONP) ===
+    // API
     const api = {
       list: (mode) => jsonp({ action:"list", mode, token: session.token||"" }),
       register: (username, password) => jsonp({ action:"register", username, password }),
@@ -201,7 +199,7 @@
       delete: (payload) => jsonp({ action:"delete", token: session.token, id: payload.id, reason: payload.reason||"", buyer: payload.buyer||"", note: payload.note||"" })
     };
 
-    // === UI ===
+    // UI
     function setAuthUI(){
       if(session.token){
         $("#authActions").style.display="none";
@@ -215,7 +213,6 @@
       }
     }
 
-    // === RENDER GRID ===
     function renderGrid(list){
       const q = $("#q").value.trim().toLowerCase();
       const filtered = list.filter(v=>{
@@ -239,7 +236,6 @@
       });
     }
 
-    // === MODAL ===
     function openModal(v){
       selected=v;
       $("#modalImages").innerHTML="";
@@ -269,9 +265,8 @@
       }
       $("#modal").classList.add("active");
     }
-    $("#closeModal").onclick=()=>{$("#modal").classList.remove("active"); selected=null;};
 
-    // === LOAD LIST ===
+    // Load
     async function loadVehicles(){
       const mode = session.token ? "mine" : "all";
       const res = await api.list(mode);
@@ -280,11 +275,11 @@
       renderGrid(currentList);
     }
 
-    // === Suche ===
+    // Suche
     $("#btnSearch").onclick=()=>renderGrid(currentList);
     $("#q").onkeydown=(e)=>{ if(e.key==="Enter") renderGrid(currentList); };
 
-    // === Auth ===
+    // Auth
     $("#btnLogin").onclick=()=>$("#dlgLogin").showModal();
     $("#btnRegister").onclick=()=>$("#dlgRegister").showModal();
     $("#btnLogout").onclick=()=>{ session={token:null,user:null}; setAuthUI(); loadVehicles(); };
@@ -304,7 +299,7 @@
       $("#regMsg").textContent = res.ok ? "Konto angelegt. Du kannst dich jetzt einloggen." : (res.error||"Registrierung fehlgeschlagen");
     };
 
-    // === Create / Edit ===
+    // Create/Edit
     $("#btnNew").onclick=()=>openEdit(null);
 
     function openEdit(v){
@@ -351,7 +346,7 @@
       $("#vehMsg").textContent="Gespeichert."; $("#dlgVehicle").close(); loadVehicles();
     };
 
-    // === Delete ===
+    // Delete
     function askDelete(v){
       selected=v;
       $("#delReason").value="Verkauf"; $("#delBuyer").value=""; $("#delOther").value="";
@@ -364,6 +359,8 @@
       $("#buyerWrap").style.display=(r==="Verkauf")?"block":"none";
       $("#otherWrap").style.display=(r==="Sonstiges")?"block":"none";
     };
+    $("#editBtn").onclick=()=>{ if(selected) openEdit(selected); };
+    $("#deleteBtn").onclick=()=>{ if(selected) askDelete(selected); };
     $("#confirmDelete").onclick=async (ev)=>{
       ev.preventDefault();
       const r = $("#delReason").value;
@@ -377,14 +374,7 @@
       $("#dlgDelete").close(); $("#modal").classList.remove("active"); loadVehicles();
     };
 
-    // Buttons im Modal
-    $("#editBtn").onclick=()=>{ if(selected) openEdit(selected); };
-    $("#deleteBtn").onclick=()=>{ if(selected) askDelete(selected); };
     $("#closeModal").onclick=()=>{$("#modal").classList.remove("active"); selected=null;};
-
-    // Suche
-    $("#btnSearch").onclick=()=>renderGrid(currentList);
-    $("#q").onkeydown=(e)=>{ if(e.key==="Enter") renderGrid(currentList); };
 
     // Init
     setAuthUI();
